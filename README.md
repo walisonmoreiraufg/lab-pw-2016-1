@@ -1,3 +1,5 @@
-# ufg-inf-pw-2016-1
+# Laboratório de PW 2016/1
 
-Projeto com os programas feitos em sala de aula.
+## Vídeos
+
+* [Download do Eclipse](https://rawgit.com/walisonmoreira/ufg-inf-pw-2016-1/master/videos/download-eclipse/download-eclipse.html)

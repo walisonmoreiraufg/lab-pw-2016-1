@@ -25,6 +25,9 @@ int operador1Int = Integer.parseInt(operador1Str);
 
 //Operação
 String operacaoStr = request.getParameter("operacao");
+if (operacaoStr == null) {
+	operacaoStr = "";
+}
 
 //Operador 2
 String operador2Str = request.getParameter("operador2");

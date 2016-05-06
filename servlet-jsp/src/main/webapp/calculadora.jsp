@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="servletjsp.Calculadora"%>
 <html>
 
   <head>
@@ -15,35 +16,32 @@
 		Operador 2: <input name="operador2">
 		<br>
 		<button>Calcular</button>
+<%!
+public String valor(
+		HttpServletRequest req,
+		String param,
+		String padrao) {
+
+	String result = req.getParameter(param);
+	if (result == null) {
+		result = padrao;
+	}
+	return result;
+}
+public int toInt(
+		HttpServletRequest req,
+		String param,
+		String padrao) {
+	return Integer.parseInt(valor(req, param, padrao));
+}
+%>
+
 <%
-//Operador 1
-String operador1Str = request.getParameter("operador1");
-if (operador1Str == null) {
-	operador1Str = "0";
-}
-int operador1Int = Integer.parseInt(operador1Str);
+int oper1 = toInt(request, "operador1", "0");
+String op = valor(request, "operacao", "");
+int oper2 = toInt(request, "operador2", "0");
 
-//Operação
-String operacaoStr = request.getParameter("operacao");
-if (operacaoStr == null) {
-	operacaoStr = "";
-}
-
-//Operador 2
-String operador2Str = request.getParameter("operador2");
-if (operador2Str == null) {
-	operador2Str = "0";
-}
-int operador2Int = Integer.parseInt(operador2Str);
-
-//Cálculo
-int resultado = 0;
-if (operacaoStr.equals("+")) {
-	resultado = operador1Int + operador2Int;
-} else if (operacaoStr.equals("-")) {
-	resultado = operador1Int - operador2Int;
-}
-
+int resultado = Calculadora.calcular(oper1, op, oper2);
 %>
   	</form>
 <b>Resultado: <%out.print(resultado);%></b>

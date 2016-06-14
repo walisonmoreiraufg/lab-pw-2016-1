@@ -7,6 +7,9 @@
 
   <body>
     <h1><a href="aluno">Aluno</a></h1>
+    <a href="logout">Logout</a>
+    <br>
+    <br>
     <form>
       <table>
         <tr>
@@ -23,6 +26,8 @@
       <button name="operacao" value="alterar">Alterar</button>
     </form>
     <b>${msg}</b>
+    <hr>
+    Usuário: ${usuario}
   </body>
 
 </html>

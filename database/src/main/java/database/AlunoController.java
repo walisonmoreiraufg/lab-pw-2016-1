@@ -1,6 +1,7 @@
 package database;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,13 +47,19 @@ public class AlunoController extends HttpServlet {
 				msg = "Alteração realizada com sucesso.";
 			} else if (op.equals("excluir")) {
 				AlunoDao.excluir(matricula);
+				resp.sendRedirect("aluno");
 				msg = "Exclusão realizada com sucesso.";
 			} else if (op.equals("")) {
 				msg = "";
 			} else {
 				throw new IllegalArgumentException("Operação \"" + op + "\" não suportada.");
 			}
+			
 			req.setAttribute("msg", msg);
+
+			List<Aluno> alunos = AlunoDao.listar();
+			req.setAttribute("alunos", alunos);
+			
 			req.getRequestDispatcher("AlunoView.jsp").forward(req, resp);
 		} catch (Exception e) {
 			e.printStackTrace(resp.getWriter());

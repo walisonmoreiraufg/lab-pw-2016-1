@@ -3,7 +3,10 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DAO = Data Access Object.
@@ -54,5 +57,32 @@ public class AlunoDao {
 		pstmt.close();
 		// Fechar conexão.
 		conn.close();
+	}
+
+	public static List<Aluno> listar() throws SQLException {
+		// Abrir uma conexão com o banco de dados.
+		Connection conn = DriverManager.getConnection(URL);
+		// Executar instrução SQL.
+		String sql = "select matricula, nome from aluno";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		// Represneta o resultado da execução.
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<Aluno> alunos = new ArrayList<>();
+		while (rs.next()) {
+			int matricula = rs.getInt("matricula");
+			String nome = rs.getString("nome");
+			Aluno aluno = new Aluno(matricula, nome);
+			alunos.add(aluno);
+		}
+	
+		// Fechar resultado.
+		rs.close();
+		// Fechar sentença.
+		pstmt.close();
+		// Fechar conexão.
+		conn.close();
+		
+		return alunos;
 	}
 }

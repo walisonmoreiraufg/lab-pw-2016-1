@@ -33,7 +33,20 @@ public class CursoDao {
 	public static void alterar(String codigo, String nome) throws SQLException {
 	}
 
-	public static void excluir(String codigo) throws SQLException {
+	public static void excluir(String codigo) {
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		Curso curso = pesquisarCodigo(codigo);			
+		
+		em.remove(curso);
+		
+		em.getTransaction().commit();
+		em.close();
+	} 
+
+	public static Curso pesquisarCodigo(String codigo) {
+		return em.find(Curso.class, codigo);
 	}
 
 	public static List<Curso> listar() throws SQLException {

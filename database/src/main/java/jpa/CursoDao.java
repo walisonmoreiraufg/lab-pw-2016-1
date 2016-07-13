@@ -30,7 +30,16 @@ public class CursoDao {
 	  em.close();
 	}
 
-	public static void alterar(String codigo, String nome) throws SQLException {
+	public static void alterar(String codigo, String nome) {
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+
+		Curso curso = new Curso(codigo, nome);
+		// Atualizando curso
+		em.merge(curso);
+		
+		em.getTransaction().commit();
+		em.close();
 	}
 
 	public static void excluir(String codigo) {
@@ -50,14 +59,14 @@ public class CursoDao {
 	}
 
 	public static List<Curso> listar() throws SQLException {
-    em = emf.createEntityManager();
-
-    String jpql = "from Curso";
-    TypedQuery<Curso> query =
-      em.createQuery(jpql, Curso.class);
-    List<Curso> result = query.getResultList();
-
-    em.close();
-    return result;
+	    em = emf.createEntityManager();
+	
+	    String jpql = "from Curso";
+	    TypedQuery<Curso> query =
+	      em.createQuery(jpql, Curso.class);
+	    List<Curso> result = query.getResultList();
+	
+	    em.close();
+	    return result;
 	}
 }
